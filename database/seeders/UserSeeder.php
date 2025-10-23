@@ -17,12 +17,13 @@ class UserSeeder extends Seeder
     {
         // Role
         $role1 = Role::findOrCreate('admin');
-        $role2 = Role::findOrCreate('kasir');
 
         // Permissions
         $permissions_admin = [
-            'manajemen_produk',
-            'manajemen_cabang',
+            'manajemen_wilayah',
+            'manajemen_polaruang',
+            'manajemen_klasifikasi',
+            'manajemen_rtrw',
         ];
 
         foreach ($permissions_admin as $permission) {
@@ -40,20 +41,6 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-
-        // Bendahara
-        $kasir = User::create([
-            'name' => 'kasir',
-            'email' => 'kasir@app.id',
-            'password' => bcrypt('password'),
-        ]);
-
-        $kasir_permissions = [
-            'manajemen_produk',
-        ];
-
-        $kasir->assignRole('kasir');
-        $kasir->givePermissionTo($kasir_permissions);
 
        
     }

@@ -12,7 +12,7 @@ class RtrwService
 
     use FileUpload;
 
-    protected $path = 'polaruang_file';
+    protected $path = 'rtrw_dokumen';
 
     protected $model;
 

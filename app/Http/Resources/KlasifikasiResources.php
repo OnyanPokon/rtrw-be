@@ -18,7 +18,7 @@ class KlasifikasiResources extends JsonResource
             'id' => $this->id,
             'rtrw' => [
                 'id' => $this->rtrw->id ?? null,
-                'nama' => $this->rtrw->name ?? null,
+                'nama' => $this->rtrw->nama ?? null,
                 'tahun_mulai' => $this->rtrw->tahun_mulai ?? null,
                 'tahun_akhir' => $this->rtrw->tahun_akhir ?? null,
                 'deskripsi' => $this->rtrw->deskripsi ?? null,

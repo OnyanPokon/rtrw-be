@@ -21,7 +21,7 @@ class RtrwResources extends JsonResource
             'tahun_akhir' => $this->tahun_akhir,
             'wilayah' => [
                 'id' => $this->wilayah->id ?? null,
-                'nama' => $this->wilayah->name ?? null,
+                'nama' => $this->wilayah->nama ?? null,
                 'tipe' => $this->wilayah->tipe ?? null,
                 'kode_wilayah' => $this->wilayah->kode_wilayah ?? null,
             ],

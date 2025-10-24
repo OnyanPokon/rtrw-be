@@ -31,7 +31,7 @@ class RtrwController extends Controller
             return $this->successResponseWithDataIndex(
                 $data,
                 RtrwResources::collection($data),
-                'Data klasifikasi berhasil diambil',
+                'Data RTRW berhasil diambil',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -48,7 +48,7 @@ class RtrwController extends Controller
             $this->rtrwService->store($request);
 
             return $this->successResponse(
-                'Berhasil menambah data klasifikasi',
+                'Berhasil menambah data RTRW',
                 Response::HTTP_CREATED
             );
         } catch (Exception $e) {
@@ -71,7 +71,7 @@ class RtrwController extends Controller
 
             return $this->successResponseWithData(
                 RtrwResources::make($data),
-                'Data klasifikasi berhasil diambil',
+                'Data RTRW berhasil diambil',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -88,7 +88,7 @@ class RtrwController extends Controller
             $this->rtrwService->update($request, $id);
 
             return $this->successResponse(
-                'Berhasil mengubah data klasifikasi',
+                'Berhasil mengubah data RTRW',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -110,7 +110,7 @@ class RtrwController extends Controller
             $this->rtrwService->destroy($id);
 
             return $this->successResponse(
-                'Berhasil menghapus data klasifikasi',
+                'Berhasil menghapus data RTRW',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -127,7 +127,7 @@ class RtrwController extends Controller
             $this->rtrwService->multiDestroy($request->ids);
 
             return $this->successResponse(
-                'Berhasil menghapus data klasifikasi',
+                'Berhasil menghapus data RTRW',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {

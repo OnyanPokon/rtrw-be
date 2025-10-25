@@ -24,7 +24,7 @@ class PolaruangRequest extends FormRequest
         return [
             'nama' => 'required|string',
             'deskripsi' => 'string',
-            'geojson_file' => 'nullable|file|mimetypes:application/json,text/plain,application/geo+json|max:2048',
+            'geojson_file' => 'nullable|file|extensions:geojson|max:2048',
             'klasifikasi_id' => 'required',
         ];
     }

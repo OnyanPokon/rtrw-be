@@ -27,7 +27,6 @@ class RtrwResources extends JsonResource
             ],
             'deskripsi' => $this->deskripsi,
             'dokumen_file' => $this->dokumen_file,
-            'kode_wilayah' => $this->kode_wilayah,
         ];
     }
 }

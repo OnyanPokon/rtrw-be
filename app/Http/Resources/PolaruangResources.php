@@ -18,11 +18,11 @@ class PolaruangResources extends JsonResource
             'id' => $this->id,
             'klasifikasi' => [
                 'id' => $this->klasifikasi->id ?? null,
-                'nama' => $this->klasifikasi->name ?? null,
+                'nama' => $this->klasifikasi->nama ?? null,
                 'deskripsi' => $this->klasifikasi->deskripsi ?? null,
                 'rtrw' => [
                     'id' => $this->klasifikasi->rtrw->id ?? null,
-                    'nama' => $this->klasifikasi->rtrw->name ?? null,
+                    'nama' => $this->klasifikasi->rtrw->nama ?? null,
                     'tahun_mulai' => $this->klasifikasi->rtrw->tahun_mulai ?? null,
                     'tahun_akhir' => $this->klasifikasi->rtrw->tahun_akhir ?? null,
                     'deskripsi' => $this->klasifikasi->rtrw->deskripsi ?? null,

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DasarHukum\DasarHukumController;
 use App\Http\Controllers\Klasifikasi\klasifikasiController;
+use App\Http\Controllers\Periode\PeriodeController;
 use App\Http\Controllers\Polaruang\PolaruangController;
 use App\Http\Controllers\Rtrw\RtrwController;
 use App\Http\Controllers\Wilayah\WilayahController;
@@ -30,7 +32,26 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete("/{id}", "destroy");
         Route::delete("/multi-delete", "multiDestroy");
     });
+
     Route::prefix('rtrw')->controller(RtrwController::class)->group(function () {
+        Route::get("/", "index");
+        Route::post("/", "store");
+        Route::get("/{id}", "show");
+        Route::put("/{id}", "update");
+        Route::delete("/{id}", "destroy");
+        Route::delete("/multi-delete", "multiDestroy");
+    });
+
+    Route::prefix('periode')->controller(PeriodeController::class)->group(function () {
+        Route::get("/", "index");
+        Route::post("/", "store");
+        Route::get("/{id}", "show");
+        Route::put("/{id}", "update");
+        Route::delete("/{id}", "destroy");
+        Route::delete("/multi-delete", "multiDestroy");
+    });
+
+    Route::prefix('dasar_hukum')->controller(DasarHukumController::class)->group(function () {
         Route::get("/", "index");
         Route::post("/", "store");
         Route::get("/{id}", "show");

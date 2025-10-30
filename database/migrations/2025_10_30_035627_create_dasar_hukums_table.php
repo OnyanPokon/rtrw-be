@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rtrw', function (Blueprint $table) {
-            $table->id()->primary();
+        Schema::create('dasar_hukum', function (Blueprint $table) {
+            $table->id();
             $table->string('nama');
-            $table->year('tahun_mulai');
-            $table->year('tahun_akhir');
-            $table->foreignId('wilayah_id')->constrained('wilayah')->onDelete('cascade');
-            $table->text('deskripsi')->nullable();
-            $table->string('dokumen_file')->nullable();
+            $table->string('file_dokumen');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rtrw');
+        Schema::dropIfExists('dasar_hukum');
     }
 };

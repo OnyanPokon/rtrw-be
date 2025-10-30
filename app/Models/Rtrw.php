@@ -12,11 +12,10 @@ class Rtrw extends Model
 
     protected $fillable = [
         'nama',
-        'tahun_mulai',
-        'tahun_akhir',
-        'wilayah_id',
         'deskripsi',
-        'dokumen_file',
+        'wilayah_id',
+        'periode_id',
+        'dasar_hukum_id'
     ];
 
     public function wilayah()
@@ -27,5 +26,15 @@ class Rtrw extends Model
     public function klasifikasis()
     {
         return $this->hasMany(Klasifikasi::class);
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
+    }
+
+    public function dasarHukum()
+    {
+        return $this->belongsTo(DasarHukum::class, 'dasar_hukum_id');
     }
 }

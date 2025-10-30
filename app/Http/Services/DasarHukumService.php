@@ -3,16 +3,20 @@
 namespace App\Http\Services;
 
 use App\Http\Traits\FileUpload;
-use App\Models\Rtrw;
+use App\Models\DasarHukum;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-class RtrwService
+class DasarHukumService
 {
+
+    use FileUpload;
+
+    protected $path = 'dasar_hukum_file';
 
     protected $model;
 
-    public function __construct(Rtrw $model)
+    public function __construct(DasarHukum $model)
     {
         $this->model = $model;
     }
@@ -24,6 +28,10 @@ class RtrwService
 
         if ($search = $request->query('search')) {
             $data->where('nama', 'like', '%' . $search . '%');
+        }
+
+        if ($klasifikasi_id = $request->query('klasifikasi_id')) {
+            $data->where('klasifikasi_id', $klasifikasi_id);
         }
 
         if ($request->page) {
@@ -41,6 +49,12 @@ class RtrwService
 
         try {
             $validatedData = $request->validated();
+
+            if ($request->hasFile('file_dokumen')) {
+                $extension = ['pdf'];
+                $filePath = $this->uploadDocument($request->file('file_dokumen'), $extension, $this->path);
+                $validatedData['file_dokumen'] = $filePath;
+            }
 
             $data = $this->model->create($validatedData);
 
@@ -64,13 +78,26 @@ class RtrwService
         try {
             $validatedData = $request->validated();
 
-            $data = $this->model->findOrFail($id)->update($validatedData);
+            $data = $this->model->findOrFail($id);
+
+            if ($request->hasFile('file_dokumen')) {
+                $extension = ['pdf'];
+
+                $filePath = $this->uploadDocument($request->file('file_dokumen'), $extension, $this->path);
+
+                if ($data->file_dokumen) {
+                    $this->unlinkFile($data->file_dokumen);
+                }
+
+                $validatedData['file_dokumen'] = $filePath;
+            }
+
+            $data->update($validatedData);
 
             DB::commit();
 
-            return $data;
+            return $data; // tetap object model
         } catch (Exception $e) {
-
             DB::rollBack();
             throw $e;
         }

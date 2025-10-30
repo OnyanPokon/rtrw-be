@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RtrwRequest extends FormRequest
+class DasarHukumRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,7 @@ class RtrwRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'wilayah_id' => 'required|exists:wilayah,id',
-            'periode_id' => 'required|exists:periode,id',
-            'dasar_hukum_id' => 'required|exists:dasar_hukum,id',
+            'file_dokumen' => 'required|file|mimes:pdf|max:5120',
         ];
     }
 
@@ -37,17 +34,10 @@ class RtrwRequest extends FormRequest
             'nama.string' => 'Nama RTRW harus berupa teks.',
             'nama.max' => 'Nama RTRW maksimal 255 karakter.',
 
-
-            'wilayah_id.required' => 'Wilayah wajib diisi.',
-            'wilayah_id.exists' => 'Wilayah yang dipilih tidak ditemukan.',
-
-            'periode_id.required' => 'Periode wajib diisi.',
-            'periode_id.exists' => 'Periode yang dipilih tidak ditemukan.',
-
-            'dasar_hukum_id.required' => 'Dasar hukum wajib diisi.',
-            'dasar_hukum_id.exists' => 'Dasar hukum yang dipilih tidak ditemukan.',
-
-            'deskripsi.string' => 'Deskripsi harus berupa teks.',
+            'file_dokumen.required' => 'Dokumen wajib diisi.',
+            'file_dokumen.file' => 'Dokumen harus berupa file.',
+            'file_dokumen.mimes' => 'Dokumen hanya boleh berupa file PDF',
+            'file_dokumen.max' => 'Ukuran dokumen maksimal 5MB.',
         ];
     }
 }

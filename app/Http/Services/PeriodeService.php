@@ -2,17 +2,16 @@
 
 namespace App\Http\Services;
 
-use App\Http\Traits\FileUpload;
-use App\Models\Rtrw;
+use App\Models\Periode;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-class RtrwService
+class PeriodeService
 {
 
     protected $model;
 
-    public function __construct(Rtrw $model)
+    public function __construct(Periode $model)
     {
         $this->model = $model;
     }

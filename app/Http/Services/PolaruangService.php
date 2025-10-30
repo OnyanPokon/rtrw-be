@@ -78,19 +78,26 @@ class PolaruangService
         try {
             $validatedData = $request->validated();
 
-            $data = $this->model->findOrFail($id)->update($validatedData);
+            $data = $this->model->findOrFail($id);
 
             if ($request->hasFile('geojson_file')) {
                 $extension = ['geojson'];
-                $validatedData['geojson_file'] = $this->uploadDocument($request->file('geojson_file'), $extension, $this->path);
-                $this->unlinkFile($data->konten);
+
+                $filePath = $this->uploadDocument($request->file('geojson_file'), $extension, $this->path);
+
+                if ($data->geojson_file) {
+                    $this->unlinkFile($data->geojson_file);
+                }
+
+                $validatedData['geojson_file'] = $filePath;
             }
+
+            $data->update($validatedData);
 
             DB::commit();
 
-            return $data;
+            return $data; // tetap object model
         } catch (Exception $e) {
-
             DB::rollBack();
             throw $e;
         }

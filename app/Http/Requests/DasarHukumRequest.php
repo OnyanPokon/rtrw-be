@@ -23,7 +23,7 @@ class DasarHukumRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:255',
-            'file_dokumen' => 'required|file|mimes:pdf|max:5120',
+            'file_dokumen' => 'required|file|mimes:pdf|max:10000',
         ];
     }
 
@@ -37,7 +37,7 @@ class DasarHukumRequest extends FormRequest
             'file_dokumen.required' => 'Dokumen wajib diisi.',
             'file_dokumen.file' => 'Dokumen harus berupa file.',
             'file_dokumen.mimes' => 'Dokumen hanya boleh berupa file PDF',
-            'file_dokumen.max' => 'Ukuran dokumen maksimal 5MB.',
+            'file_dokumen.max' => 'Ukuran dokumen maksimal 10mb.',
         ];
     }
 }

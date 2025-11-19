@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('rtrw_id')->constrained('rtrw')->onDelete('cascade');
             $table->string('nama');
             $table->text('deskripsi')->nullable();
+            $table->enum('tipe', ['struktur_ruang', 'pola_ruang']);
             $table->timestamps();
         });
     }

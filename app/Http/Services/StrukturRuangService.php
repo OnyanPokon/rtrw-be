@@ -163,4 +163,6 @@ class StrukturRuangService
 
         return response()->json(['error' => 'No GeoJSON file found for this entry'], 404);
     }
+
+    
 }

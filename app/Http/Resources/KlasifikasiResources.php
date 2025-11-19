@@ -31,6 +31,7 @@ class KlasifikasiResources extends JsonResource
             ],
             'nama' => $this->nama,
             'deskripsi' => $this->deskripsi,
+            'tipe' => $this->tipe,
             'created_at' => $this->created_at->format('d F Y'),
             'updated_at' => $this->updated_at->format('d F Y'),
         ];

@@ -14,6 +14,7 @@ class Klasifikasi extends Model
         'rtrw_id',
         'nama',
         'deskripsi',
+        'tipe',
     ];
 
     public function rtrw()
@@ -24,5 +25,10 @@ class Klasifikasi extends Model
     public function polaRuang()
     {
         return $this->hasMany(PolaRuang::class);
+    }
+
+    public function strukturRuang()
+    {
+        return $this->hasMany(StrukturRuang::class);
     }
 }

@@ -38,7 +38,7 @@ class StrukturRuangResources extends JsonResource
             'deskripsi' => $this->deskripsi,
             'geojson_file' => $this->geojson_file,
             'tipe_geometri' => $this->tipe_geometri,
-            'icon_tiitk' => $this->icon_tiitk,
+            'icon_titik' => $this->icon_titik,
             'tipe_garis' => $this->tipe_garis,
             'warna' => $this->warna,
             'created_at' => $this->created_at->format('d F Y'),

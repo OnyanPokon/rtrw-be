@@ -32,7 +32,7 @@ class PolaruangService
         }
 
         if ($klasifikasi_id = $request->query('klasifikasi_id')) {
-            $data->where('klasifikasi_id', $klasifikasi_id);
+        $data->where('klasifikasi_id', $klasifikasi_id);
         }
 
         if ($request->page) {

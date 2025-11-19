@@ -7,7 +7,7 @@ use App\Http\Controllers\Periode\PeriodeController;
 use App\Http\Controllers\Polaruang\PolaruangController;
 use App\Http\Controllers\Rtrw\RtrwController;
 use App\Http\Controllers\Wilayah\WilayahController;
-use App\Models\StrukturRuang;
+use App\Http\Controllers\StrukturRuang\StrukturRuangController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('rtrw')->controller(RtrwController::class)->group(function () {
@@ -18,6 +18,7 @@ Route::prefix('rtrw')->controller(RtrwController::class)->group(function () {
 Route::get('/rtrw/{id}/klasifikasi', [RtrwController::class, 'klasifikasiByRTRW']);
 
 Route::get('/polaruang/{id}/geojson', [PolaruangController::class, 'showGeoJson']);
+Route::get('/struktur_ruang/{id}/geojson', [StrukturRuangController::class, 'showGeoJson']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::prefix('auth')->controller(AuthController::class)->group(function () {
@@ -43,7 +44,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete("/multi-delete", "multiDestroy");
     });
 
-    Route::prefix('struktur_ruang')->controller(StrukturRuang::class)->group(function () {
+    Route::prefix('struktur_ruang')->controller(StrukturRuangController::class)->group(function () {
         Route::get("/", "index");
         Route::post("/", "store");
         Route::get("/{id}", "show");

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StrukturRuang extends Model
 {
-    protected $table = 'polaruang';
+    protected $table = 'struktur_ruang';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -16,7 +16,7 @@ class StrukturRuang extends Model
         'deskripsi',
         'geojson_file',
         'tipe_geometri',
-        'icon_garis',
+        'icon_titik',
         'tipe_garis',
         'warna',
     ];

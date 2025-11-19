@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Http\Traits\FileUpload;
 use App\Models\Rtrw;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +38,14 @@ class RtrwService
     {
         $rtrw = $this->model->findOrFail($rtrwId);
 
-        $klasifikasis = $rtrw->klasifikasis()->with('polaRuang')->get();
+        $klasifikasi_pola_ruang = $rtrw->klasifikasis()
+            ->whereHas('polaRuang')   // hanya yg punya relasi polaRuang
+            ->with('polaRuang')       // load datanya
+            ->get();
+        $klasifikasi_struktur_ruang = $rtrw->klasifikasis()
+            ->whereHas('strukturRuang')   // hanya yg punya relasi strukturRuang
+            ->with('strukturRuang')
+            ->get();
 
         return [
             'rtrw' => [
@@ -47,7 +53,8 @@ class RtrwService
                 'nama' => $rtrw->nama,
                 'deskripsi' => $rtrw->deskripsi,
             ],
-            'klasifikasis' => $klasifikasis
+            'klasifikasi_pola_ruang' => $klasifikasi_pola_ruang,
+            'klasifikasi_struktur_ruang' => $klasifikasi_struktur_ruang
         ];
     }
 

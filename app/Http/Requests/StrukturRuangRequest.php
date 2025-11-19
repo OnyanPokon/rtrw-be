@@ -16,7 +16,7 @@ class StrukturRuangRequest extends FormRequest
         return [
             'nama'           => 'required|string',
             'deskripsi'      => 'nullable|string',
-            'geojson_file'   => 'nullable|file|extensions:geojson|max:2048',
+            'geojson_file'   => 'nullable|file|extensions:geojson|max:10000000000',
             'klasifikasi_id' => 'required|integer',
             'tipe_geometri'  => 'required|in:polyline,point',
             'icon_titik'     => 'nullable|string',

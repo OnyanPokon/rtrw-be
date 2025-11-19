@@ -23,8 +23,11 @@ class StrukturRuangResources extends JsonResource
                 'rtrw' => [
                     'id' => $this->klasifikasi->rtrw->id ?? null,
                     'nama' => $this->klasifikasi->rtrw->nama ?? null,
-                    'tahun_mulai' => $this->klasifikasi->rtrw->tahun_mulai ?? null,
-                    'tahun_akhir' => $this->klasifikasi->rtrw->tahun_akhir ?? null,
+                    'periode' => [
+                        'id' => $this->klasifikasi->rtrw->periode->id ?? null,
+                        'tahun_mulai' => $this->klasifikasi->rtrw->periode->tahun_mulai ?? null,
+                        'tahun_akhir' => $this->klasifikasi->rtrw->periode->tahun_akhir ?? null,
+                    ],
                     'deskripsi' => $this->klasifikasi->rtrw->deskripsi ?? null,
                     'wilayah' => [
                         'id' => $this->klasifikasi->rtrw->wilayah->id ?? null,

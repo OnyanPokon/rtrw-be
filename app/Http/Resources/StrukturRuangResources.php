@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class StrukturRuangResources extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'klasifikasi' => [
+                'id' => $this->klasifikasi->id ?? null,
+                'nama' => $this->klasifikasi->nama ?? null,
+                'deskripsi' => $this->klasifikasi->deskripsi ?? null,
+                'rtrw' => [
+                    'id' => $this->klasifikasi->rtrw->id ?? null,
+                    'nama' => $this->klasifikasi->rtrw->nama ?? null,
+                    'tahun_mulai' => $this->klasifikasi->rtrw->tahun_mulai ?? null,
+                    'tahun_akhir' => $this->klasifikasi->rtrw->tahun_akhir ?? null,
+                    'deskripsi' => $this->klasifikasi->rtrw->deskripsi ?? null,
+                    'wilayah' => [
+                        'id' => $this->klasifikasi->rtrw->wilayah->id ?? null,
+                        'nama' => $this->klasifikasi->rtrw->wilayah->nama ?? null,
+                        'tipe' => $this->klasifikasi->rtrw->wilayah->tipe ?? null,
+                        'kode_wilayah' => $this->klasifikasi->rtrw->wilayah->kode_wilayah ?? null,
+                    ],
+                ],
+            ],
+            'nama' => $this->nama,
+            'deskripsi' => $this->deskripsi,
+            'geojson_file' => $this->geojson_file,
+            'tipe_geometri' => $this->tipe_geometri,
+            'icon_tiitk' => $this->icon_tiitk,
+            'tipe_garis' => $this->tipe_garis,
+            'warna' => $this->warna,
+            'created_at' => $this->created_at->format('d F Y'),
+            'updated_at' => $this->updated_at->format('d F Y'),
+        ];
+    }
+}

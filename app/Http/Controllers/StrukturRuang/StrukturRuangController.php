@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Rtrw;
+namespace App\Http\Controllers\StrukturRuang;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RtrwRequest;
-use App\Http\Resources\RtrwResources;
-use App\Http\Services\RtrwService;
+use App\Http\Requests\StrukturRuangRequest;
+use App\Http\Resources\StrukturRuangResources;
+use App\Http\Services\StrukturRuangService;
 use App\Http\Traits\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class RtrwController extends Controller
+class StrukturRuangController extends Controller
 {
     use ApiResponse;
 
-    protected $rtrwService;
+    protected $strukturRuangService;
 
-    public function __construct(RtrwService $rtrwService)
+    public function __construct(StrukturRuangService $strukturRuangService)
     {
-        $this->rtrwService = $rtrwService;
+        $this->strukturRuangService = $strukturRuangService;
     }
 
     public function index(Request $request)
     {
         try {
-            $data = $this->rtrwService->getAll($request);
+            $data = $this->strukturRuangService->getAll($request);
 
             return $this->successResponseWithDataIndex(
                 $data,
-                RtrwResources::collection($data),
-                'Data RTRW berhasil diambil',
+                StrukturRuangResources::collection($data),
+                'Data polruang berhasil diambil',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -42,31 +42,13 @@ class RtrwController extends Controller
         }
     }
 
-    public function klasifikasiByRTRW($id)
+    public function store(StrukturRuangRequest $request)
     {
         try {
-            $data = $this->rtrwService->getKlasifikasiByRTRW($id);
-
-            return $this->successResponseWithData(
-                $data,
-                'Data klasifikasi dan pola ruang berhasil diambil',
-                Response::HTTP_OK
-            );
-        } catch (Exception $e) {
-            return $this->errorResponse(
-                $e->getMessage(),
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-    }
-
-    public function store(RtrwRequest $request)
-    {
-        try {
-            $this->rtrwService->store($request);
+            $this->strukturRuangService->store($request);
 
             return $this->successResponse(
-                'Berhasil menambah data RTRW',
+                'Berhasil menambah data polrauang',
                 Response::HTTP_CREATED
             );
         } catch (Exception $e) {
@@ -85,11 +67,11 @@ class RtrwController extends Controller
     public function show($id)
     {
         try {
-            $data = $this->rtrwService->show($id);
+            $data = $this->strukturRuangService->show($id);
 
             return $this->successResponseWithData(
-                RtrwResources::make($data),
-                'Data RTRW berhasil diambil',
+                StrukturRuangResources::make($data),
+                'Data polaruang berhasil diambil',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -100,13 +82,13 @@ class RtrwController extends Controller
         }
     }
 
-    public function update(RtrwRequest $request, $id)
+    public function update(StrukturRuangRequest $request, $id)
     {
         try {
-            $this->rtrwService->update($request, $id);
+            $this->strukturRuangService->update($request, $id);
 
             return $this->successResponse(
-                'Berhasil mengubah data RTRW',
+                'Berhasil mengubah data polaruang',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -125,10 +107,10 @@ class RtrwController extends Controller
     public function destroy($id)
     {
         try {
-            $this->rtrwService->destroy($id);
+            $this->strukturRuangService->destroy($id);
 
             return $this->successResponse(
-                'Berhasil menghapus data RTRW',
+                'Berhasil menghapus data polaruanbg',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -142,10 +124,10 @@ class RtrwController extends Controller
     public function multiDestroy(Request $request)
     {
         try {
-            $this->rtrwService->multiDestroy($request->ids);
+            $this->strukturRuangService->multiDestroy($request->ids);
 
             return $this->successResponse(
-                'Berhasil menghapus data RTRW',
+                'Berhasil menghapus data polaruang',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -154,5 +136,12 @@ class RtrwController extends Controller
                 Response::HTTP_BAD_REQUEST
             );
         }
+    }
+
+    public function showGeoJson($id)
+    {
+        $data = $this->strukturRuangService->showGeoJson($id);
+
+        return $data;
     }
 }

@@ -3,21 +3,21 @@
 namespace App\Http\Services;
 
 use App\Http\Traits\FileUpload;
-use App\Models\Polaruang;
+use App\Models\StrukturRuang;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class PolaruangService
+class StrukturRuangService
 {
 
     use FileUpload;
 
-    protected $path = 'polaruang_file';
+    protected $path = 'struktur_ruang_file';
 
     protected $model;
 
-    public function __construct(Polaruang $model)
+    public function __construct(StrukturRuang $model)
     {
         $this->model = $model;
     }
@@ -141,12 +141,12 @@ class PolaruangService
 
     public function showGeoJson($id)
     {
-        $polaruang = $this->model->findOrFail($id);
+        $struktur_ruang = $this->model->findOrFail($id);
 
         // Cek apakah ada file
-        if (!empty($polaruang->geojson_file)) {
+        if (!empty($struktur_ruang->geojson_file)) {
 
-            $filename = $polaruang->geojson_file;
+            $filename = $struktur_ruang->geojson_file;
 
             if (!Storage::disk('public')->exists($filename)) {
                 return response()->json(['error' => 'File not found on disk'], 404);

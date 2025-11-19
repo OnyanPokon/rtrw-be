@@ -137,4 +137,11 @@ class PolaruangController extends Controller
             );
         }
     }
+
+    public function showGeoJson($id)
+    {
+        $data = $this->polaruangService->showGeoJson($id);
+
+        return $data;
+    }
 }

@@ -1,3 +1,9 @@
+<IfModule mod_headers.c>
+    # Izinkan CORS untuk file static, termasuk dari /storage
+    Header set Access-Control-Allow-Origin "http://localhost:5173"
+    Header set Access-Control-Allow-Methods "GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+</IfModule>
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes

@@ -35,6 +35,22 @@ class RtrwService
         return $data;
     }
 
+    public function getKlasifikasiByRTRW($rtrwId)
+    {
+        $rtrw = $this->model->findOrFail($rtrwId);
+
+        $klasifikasis = $rtrw->klasifikasis()->with('polaRuang')->get();
+
+        return [
+            'rtrw' => [
+                'id' => $rtrw->id,
+                'nama' => $rtrw->nama,
+                'deskripsi' => $rtrw->deskripsi,
+            ],
+            'klasifikasis' => $klasifikasis
+        ];
+    }
+
     public function store($request)
     {
         DB::beginTransaction();

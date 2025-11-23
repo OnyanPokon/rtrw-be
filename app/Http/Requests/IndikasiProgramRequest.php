@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DasarHukumRequest extends FormRequest
+class IndikasiProgramRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class DasarHukumRequest extends FormRequest
 
         return [
             'nama' => 'required|string|max:255',
-            'file_dokumen' => "$docRule|file|mimes:pdf|max:10000"
+            'file_dokumen' => "$docRule|file|mimes:pdf",
+            'klasifikasi_id' => 'required',
         ];
     }
 
@@ -38,8 +39,7 @@ class DasarHukumRequest extends FormRequest
 
             'file_dokumen.required' => 'Dokumen wajib diisi.',
             'file_dokumen.file' => 'Dokumen harus berupa file.',
-            'file_dokumen.mimes' => 'Dokumen hanya boleh berupa file PDF.',
-            'file_dokumen.max' => 'Ukuran dokumen maksimal 10mb.',
+            'file_dokumen.mimes' => 'Dokumen hanya boleh berupa file PDF',
         ];
     }
 }

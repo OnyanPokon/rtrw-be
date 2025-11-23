@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DasarHukumRequest extends FormRequest
+class PkkprlRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +24,23 @@ class DasarHukumRequest extends FormRequest
         $docRule = $this->isMethod('POST') ? 'required' : 'nullable';
 
         return [
-            'nama' => 'required|string|max:255',
-            'file_dokumen' => "$docRule|file|mimes:pdf|max:10000"
+            'nama' => 'required|string',
+            'deskripsi' => 'string',
+            'geojson_file' => "$docRule|file|extensions:geojson",
+
+            'klasifikasi_id' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nama.required' => 'Nama RTRW wajib diisi.',
-            'nama.string' => 'Nama RTRW harus berupa teks.',
-            'nama.max' => 'Nama RTRW maksimal 255 karakter.',
-
-            'file_dokumen.required' => 'Dokumen wajib diisi.',
-            'file_dokumen.file' => 'Dokumen harus berupa file.',
-            'file_dokumen.mimes' => 'Dokumen hanya boleh berupa file PDF.',
-            'file_dokumen.max' => 'Ukuran dokumen maksimal 10mb.',
+            'nama.required' => 'Nama wajib diisi.',
+            'nama.string' => 'Nama harus berupa teks.',
+            'deskripsi.string' => 'Deskripsi harus berupa text.',
+            'klasifikasi_id' => 'Klasifikasi wajib diisi',
+            'geojson_file.file' => 'geojson_file harus berupa file.',
+            'geojson_file.mimes' => 'geojson_file harus berformat geojson.',
         ];
     }
 }

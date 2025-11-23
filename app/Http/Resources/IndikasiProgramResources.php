@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PolaruangResources extends JsonResource
+class IndikasiProgramResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -39,10 +39,7 @@ class PolaruangResources extends JsonResource
                 ],
             ],
             'nama' => $this->nama,
-            'deskripsi' => $this->deskripsi,
-            'geojson_file' => $this->geojson_file,
-            'created_at' => $this->created_at->format('d F Y'),
-            'updated_at' => $this->updated_at->format('d F Y'),
+            'file_dokumen' => $this->file_dokumen,
         ];
     }
 }

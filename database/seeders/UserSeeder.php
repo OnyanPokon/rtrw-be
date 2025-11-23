@@ -27,6 +27,9 @@ class UserSeeder extends Seeder
             'manajemen_rtrw',
             'manajemen_periode',
             'manajemen_dasar_hukum',
+            'manajemen_ketentuan_khusus',
+            'manajemen_indikasi_program',
+            'manajemen_pkkprl',
         ];
 
         foreach ($permissions_admin as $permission) {

@@ -13,10 +13,13 @@ class StrukturRuangRequest extends FormRequest
 
     public function rules(): array
     {
+        $docRule = $this->isMethod('POST') ? 'required' : 'nullable';
+
         return [
             'nama'           => 'required|string',
             'deskripsi'      => 'nullable|string',
-            'geojson_file'   => 'nullable|file|extensions:geojson|max:10000000000',
+            'geojson_file' => "$docRule|file|extensions:geojson",
+
             'klasifikasi_id' => 'required|integer',
             'tipe_geometri'  => 'required|in:polyline,point',
             'icon_titik'     => 'nullable|string',
@@ -37,7 +40,6 @@ class StrukturRuangRequest extends FormRequest
 
             'geojson_file.file'    => 'File GeoJSON tidak valid.',
             'geojson_file.extensions' => 'File harus berformat .geojson.',
-            'geojson_file.max'     => 'Ukuran file tidak boleh lebih dari 2MB.',
 
             'tipe_geometri.required' => 'Tipe geometri wajib dipilih.',
             'tipe_geometri.in'       => 'Tipe geometri harus polyline atau point.',

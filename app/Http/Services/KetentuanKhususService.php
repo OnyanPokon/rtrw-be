@@ -2,16 +2,22 @@
 
 namespace App\Http\Services;
 
-use App\Models\Rtrw;
+use App\Http\Traits\FileUpload;
+use App\Models\KetentuanKhusus;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class RtrwService
+class KetentuanKhususService
 {
+
+    use FileUpload;
+
+    protected $path = 'ketentuan_khusus_file';
 
     protected $model;
 
-    public function __construct(Rtrw $model)
+    public function __construct(KetentuanKhusus $model)
     {
         $this->model = $model;
     }
@@ -25,6 +31,10 @@ class RtrwService
             $data->where('nama', 'like', '%' . $search . '%');
         }
 
+        if ($klasifikasi_id = $request->query('klasifikasi_id')) {
+        $data->where('klasifikasi_id', $klasifikasi_id);
+        }
+
         if ($request->page) {
             $data = $data->paginate($per_page);
         } else {
@@ -34,51 +44,18 @@ class RtrwService
         return $data;
     }
 
-    public function getKlasifikasiByRTRW($rtrwId)
-    {
-        $rtrw = $this->model->findOrFail($rtrwId);
-
-        $klasifikasi_pola_ruang = $rtrw->klasifikasis()
-            ->whereHas('polaRuang')   // hanya yg punya relasi polaRuang
-            ->with('polaRuang')       // load datanya
-            ->get();
-        $klasifikasi_struktur_ruang = $rtrw->klasifikasis()
-            ->whereHas('strukturRuang')   // hanya yg punya relasi strukturRuang
-            ->with('strukturRuang')
-            ->get();
-        $klasifikasi_ketentuan_khusus = $rtrw->klasifikasis()
-            ->whereHas('ketentuanKhusus')   // hanya yg punya relasi strukturRuang
-            ->with('ketentuanKhusus')
-            ->get();
-        $klasifikasi_indikasi_program = $rtrw->klasifikasis()
-            ->whereHas('indikasiProgram')   // hanya yg punya relasi strukturRuang
-            ->with('indikasiProgram')
-            ->get();
-        $klasifikasi_pkkprl = $rtrw->klasifikasis()
-            ->whereHas('pkkprl')   // hanya yg punya relasi strukturRuang
-            ->with('pkkprl')
-            ->get();
-
-        return [
-            'rtrw' => [
-                'id' => $rtrw->id,
-                'nama' => $rtrw->nama,
-                'deskripsi' => $rtrw->deskripsi,
-            ],
-            'klasifikasi_pola_ruang' => $klasifikasi_pola_ruang,
-            'klasifikasi_struktur_ruang' => $klasifikasi_struktur_ruang,
-            'klasifikasi_ketentuan_khusus' => $klasifikasi_ketentuan_khusus,
-            'klasifikasi_indikasi_program' => $klasifikasi_indikasi_program,
-            'klasifikasi_pkkprl' => $klasifikasi_pkkprl,
-        ];
-    }
-
     public function store($request)
     {
         DB::beginTransaction();
 
         try {
             $validatedData = $request->validated();
+
+            if ($request->hasFile('geojson_file')) {
+                $extension = ['geojson'];
+                $filePath = $this->uploadDocument($request->file('geojson_file'), $extension, $this->path);
+                $validatedData['geojson_file'] = $filePath;
+            }
 
             $data = $this->model->create($validatedData);
 
@@ -102,13 +79,26 @@ class RtrwService
         try {
             $validatedData = $request->validated();
 
-            $data = $this->model->findOrFail($id)->update($validatedData);
+            $data = $this->model->findOrFail($id);
+
+            if ($request->hasFile('geojson_file')) {
+                $extension = ['geojson'];
+
+                $filePath = $this->uploadDocument($request->file('geojson_file'), $extension, $this->path);
+
+                if ($data->geojson_file) {
+                    $this->unlinkFile($data->geojson_file);
+                }
+
+                $validatedData['geojson_file'] = $filePath;
+            }
+
+            $data->update($validatedData);
 
             DB::commit();
 
-            return $data;
+            return $data; // tetap object model
         } catch (Exception $e) {
-
             DB::rollBack();
             throw $e;
         }
@@ -147,5 +137,30 @@ class RtrwService
             DB::rollBack();
             throw $e;
         }
+    }
+
+    public function showGeoJson($id)
+    {
+        $ketentuan_khusus = $this->model->findOrFail($id);
+
+        // Cek apakah ada file
+        if (!empty($ketentuan_khusus->geojson_file)) {
+
+            $filename = $ketentuan_khusus->geojson_file;
+
+            if (!Storage::disk('public')->exists($filename)) {
+                return response()->json(['error' => 'File not found on disk'], 404);
+            }
+
+            // ambil full path
+            $path = Storage::disk('public')->path($filename);
+
+            return response()->file($path, [
+                'Content-Type' => 'application/geo+json',
+                'Access-Control-Allow-Origin' => '*',
+            ]);
+        }
+
+        return response()->json(['error' => 'No GeoJSON file found for this entry'], 404);
     }
 }

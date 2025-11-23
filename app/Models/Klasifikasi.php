@@ -31,4 +31,17 @@ class Klasifikasi extends Model
     {
         return $this->hasMany(StrukturRuang::class);
     }
+
+    public function ketentuanKhusus()
+    {
+        return $this->hasMany(KetentuanKhusus::class);
+    }
+    public function indikasiProgram()
+    {
+        return $this->hasMany(indikasiProgram::class);
+    }
+    public function pkkprl()
+    {
+        return $this->hasMany(Pkkprl::class);
+    }
 }

@@ -21,10 +21,12 @@ class PolaruangRequest extends FormRequest
      */
     public function rules(): array
     {
+        $docRule = $this->isMethod('POST') ? 'required' : 'nullable';
+
         return [
             'nama' => 'required|string',
             'deskripsi' => 'string',
-            'geojson_file' => 'nullable|file|extensions:geojson|max:2048',
+            'geojson_file' => "$docRule|file|extensions:geojson",
             'klasifikasi_id' => 'required',
         ];
     }
@@ -38,7 +40,6 @@ class PolaruangRequest extends FormRequest
             'klasifikasi_id' => 'Klasifikasi wajib diisi',
             'geojson_file.file' => 'geojson_file harus berupa file.',
             'geojson_file.mimes' => 'geojson_file harus berformat geojson.',
-            'geojson_file.max' => 'Ukuran geojson_file tidak boleh lebih dari 2MB.',
         ];
     }
 }

@@ -24,9 +24,7 @@ class RtrwRequest extends FormRequest
         return [
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'wilayah_id' => 'required|exists:wilayah,id',
             'periode_id' => 'required|exists:periode,id',
-            'dasar_hukum_id' => 'required|exists:dasar_hukum,id',
         ];
     }
 
@@ -38,14 +36,8 @@ class RtrwRequest extends FormRequest
             'nama.max' => 'Nama RTRW maksimal 255 karakter.',
 
 
-            'wilayah_id.required' => 'Wilayah wajib diisi.',
-            'wilayah_id.exists' => 'Wilayah yang dipilih tidak ditemukan.',
-
             'periode_id.required' => 'Periode wajib diisi.',
             'periode_id.exists' => 'Periode yang dipilih tidak ditemukan.',
-
-            'dasar_hukum_id.required' => 'Dasar hukum wajib diisi.',
-            'dasar_hukum_id.exists' => 'Dasar hukum yang dipilih tidak ditemukan.',
 
             'deskripsi.string' => 'Deskripsi harus berupa teks.',
         ];

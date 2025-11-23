@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dasar_hukum', function (Blueprint $table) {
+        Schema::create('berita', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('file_dokumen');
+            $table->string('judul');
+            $table->string('slug');
+            $table->text('konten');
+            $table->string('thumbnail')->default('default.png');
+            $table->enum('status', ['publikasi', 'draft'])->default('publikasi');
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dasar_hukum');
+        Schema::dropIfExists('berita');
     }
 };

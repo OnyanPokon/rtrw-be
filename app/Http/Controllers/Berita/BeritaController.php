@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\DasarHukum;
+namespace App\Http\Controllers\Berita;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DasarHukumRequest;
-use App\Http\Resources\DasarHukumResources;
-use App\Http\Services\DasarHukumService;
+use App\Http\Requests\BeritaRequest;
+use App\Http\Resources\BeritaResources;
+use App\Http\Services\BeritaService;
 use App\Http\Traits\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-class DasarHukumController extends Controller
+class BeritaController extends Controller
 {
     use ApiResponse;
 
-    protected $dasarHukumService;
+    protected $beritaService;
 
-    public function __construct(DasarHukumService $dasarHukumService)
+    public function __construct(BeritaService $beritaService)
     {
-        $this->dasarHukumService = $dasarHukumService;
+        $this->beritaService = $beritaService;
     }
 
     public function index(Request $request)
     {
         try {
-            $data = $this->dasarHukumService->getAll($request);
+            $data = $this->beritaService->getAll($request);
 
             return $this->successResponseWithDataIndex(
                 $data,
-                DasarHukumResources::collection($data),
-                'Data dasar hukum berhasil diambil',
+                BeritaResources::collection($data),
+                'Data berita berhasil diambil',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -42,13 +42,25 @@ class DasarHukumController extends Controller
         }
     }
 
-    public function store(DasarHukumRequest $request)
+    public function landing(Request $request)
+    {
+        $data = $this->beritaService->landing($request);
+
+        return $this->successResponseWithDataIndex(
+            $data,
+            BeritaResources::collection($data),
+            'Data berita berhasil diambil',
+            Response::HTTP_OK
+        );
+    }
+
+    public function store(BeritaRequest $request)
     {
         try {
-            $this->dasarHukumService->store($request);
+            $this->beritaService->store($request);
 
             return $this->successResponse(
-                'Berhasil menambah data dasar hukum',
+                'Berhasil menambah data berita',
                 Response::HTTP_CREATED
             );
         } catch (Exception $e) {
@@ -64,14 +76,25 @@ class DasarHukumController extends Controller
         }
     }
 
+    public function detail($slug)
+    {
+        $data = $this->beritaService->detail($slug);
+
+        return $this->successResponseWithData(
+            BeritaResources::make($data),
+            'Data berita berhasil diambil',
+            Response::HTTP_OK
+        );
+    }
+
     public function show($id)
     {
         try {
-            $data = $this->dasarHukumService->show($id);
+            $data = $this->beritaService->show($id);
 
             return $this->successResponseWithData(
-                DasarHukumResources::make($data),
-                'Data dasar hukum berhasil diambil',
+                BeritaResources::make($data),
+                'Data berita berhasil diambil',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -82,13 +105,13 @@ class DasarHukumController extends Controller
         }
     }
 
-    public function update(DasarHukumRequest $request, $id)
+    public function update(BeritaRequest $request, $id)
     {
         try {
-            $this->dasarHukumService->update($request, $id);
+            $this->beritaService->update($request, $id);
 
             return $this->successResponse(
-                'Berhasil mengubah data dasar hukum',
+                'Berhasil mengubah data berita',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -107,10 +130,10 @@ class DasarHukumController extends Controller
     public function destroy($id)
     {
         try {
-            $this->dasarHukumService->destroy($id);
+            $this->beritaService->destroy($id);
 
             return $this->successResponse(
-                'Berhasil menghapus data dasar hukum',
+                'Berhasil menghapus data berita',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {
@@ -124,10 +147,10 @@ class DasarHukumController extends Controller
     public function multiDestroy(Request $request)
     {
         try {
-            $this->dasarHukumService->multiDestroy($request->ids);
+            $this->beritaService->multiDestroy($request->ids);
 
             return $this->successResponse(
-                'Berhasil menghapus data dasar hukum',
+                'Berhasil menghapus data berita',
                 Response::HTTP_OK
             );
         } catch (Exception $e) {

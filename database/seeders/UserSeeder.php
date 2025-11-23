@@ -20,16 +20,15 @@ class UserSeeder extends Seeder
 
         // Permissions
         $permissions_admin = [
-            'manajemen_wilayah',
             'manajemen_polaruang',
             'manajemen_struktur_ruang',
             'manajemen_klasifikasi',
             'manajemen_rtrw',
             'manajemen_periode',
-            'manajemen_dasar_hukum',
             'manajemen_ketentuan_khusus',
             'manajemen_indikasi_program',
             'manajemen_pkkprl',
+            'manajemen_berita',
         ];
 
         foreach ($permissions_admin as $permission) {

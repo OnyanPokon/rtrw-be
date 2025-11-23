@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DasarHukumResources extends JsonResource
+class BeritaResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,13 @@ class DasarHukumResources extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama' => $this->nama,
-            'file_dokumen' => $this->file_dokumen,
+            'judul' => $this->judul,
+            'slug' => $this->slug,
+            'konten' => $this->konten,
+            'thumbnail' => $this->thumbnail,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

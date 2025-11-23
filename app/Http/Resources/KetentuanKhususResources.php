@@ -30,12 +30,7 @@ class KetentuanKhususResources extends JsonResource
                         'tahun_akhir' => $this->klasifikasi->rtrw->periode->tahun_akhir ?? null,
                     ],
                     'deskripsi' => $this->klasifikasi->rtrw->deskripsi ?? null,
-                    'wilayah' => [
-                        'id' => $this->klasifikasi->rtrw->wilayah->id ?? null,
-                        'nama' => $this->klasifikasi->rtrw->wilayah->nama ?? null,
-                        'tipe' => $this->klasifikasi->rtrw->wilayah->tipe ?? null,
-                        'kode_wilayah' => $this->klasifikasi->rtrw->wilayah->kode_wilayah ?? null,
-                    ],
+                  
                 ],
             ],
             'nama' => $this->nama,

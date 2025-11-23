@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Berita\BeritaController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\IndikasiProgram\IndikasiProgramController;
 use App\Http\Controllers\KetentuanKhusus\KetentuanKhususController;
 use App\Http\Controllers\Pkkprl\PkkprlController;
@@ -31,6 +32,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get("me", "getUser");
         Route::post("logout", "logout");
     });
+
+    Route::get('/summary', [DashboardController::class, 'index']);
+
+
 
     Route::prefix('berita')->controller(BeritaController::class)->group(function () {
         Route::get("/", "index");

@@ -28,6 +28,7 @@ class PolaruangRequest extends FormRequest
             'deskripsi' => 'string',
             'geojson_file' => "$docRule|file|extensions:geojson",
             'klasifikasi_id' => 'required',
+            'warna' => 'required|string',
         ];
     }
 
@@ -40,6 +41,8 @@ class PolaruangRequest extends FormRequest
             'klasifikasi_id' => 'Klasifikasi wajib diisi',
             'geojson_file.file' => 'geojson_file harus berupa file.',
             'geojson_file.mimes' => 'geojson_file harus berformat geojson.',
+            'warna.required' => 'Warna wajib diisi.',
+            'warna.string' => 'Warna harus berupa teks.',
         ];
     }
 }

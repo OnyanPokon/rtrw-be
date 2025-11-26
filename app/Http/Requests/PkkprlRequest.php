@@ -27,7 +27,7 @@ class PkkprlRequest extends FormRequest
             'nama' => 'required|string',
             'deskripsi' => 'string',
             'geojson_file' => "$docRule|file|extensions:geojson",
-
+            'warna' => 'required|string',
             'klasifikasi_id' => 'required',
         ];
     }
@@ -41,6 +41,8 @@ class PkkprlRequest extends FormRequest
             'klasifikasi_id' => 'Klasifikasi wajib diisi',
             'geojson_file.file' => 'geojson_file harus berupa file.',
             'geojson_file.mimes' => 'geojson_file harus berformat geojson.',
+            'warna.required' => 'warna wajib diisi.',
+            'warna.string' => 'warna harus berupa teks.',
         ];
     }
 }

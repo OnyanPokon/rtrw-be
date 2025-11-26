@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->text('deskripsi')->nullable();
             $table->string('geojson_file');
+            $table->string('warna');
             $table->timestamps();
         });
     }

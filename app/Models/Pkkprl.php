@@ -15,6 +15,7 @@ class Pkkprl extends Model
         'nama',
         'deskripsi',
         'geojson_file',
+        'warna',
     ];
 
     public function klasifikasi()

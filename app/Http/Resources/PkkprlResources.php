@@ -34,6 +34,7 @@ class PkkprlResources extends JsonResource
                 ],
             ],
             'nama' => $this->nama,
+            'warna' => $this->warna,
             'deskripsi' => $this->deskripsi,
             'geojson_file' => $this->geojson_file,
             'created_at' => $this->created_at->format('d F Y'),
